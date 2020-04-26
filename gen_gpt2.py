@@ -33,7 +33,7 @@ if not os.path.isdir(os.path.join("models", model_name)):
 # In[9]:
 
 
-!gpt_2_simple generate --temperature 1.0 --nsamples 5 --batch_size 5 --length 500 
+#!gpt_2_simple generate --temperature 1.0 --nsamples 5 --batch_size 5 --length 500 
 
 # In[13]:
 
