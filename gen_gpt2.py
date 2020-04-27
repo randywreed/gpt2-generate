@@ -62,7 +62,7 @@ all_seq=gpt2.generate(sess,model_name="1558M",batch_size=gpucnt,nsamples=20,leng
 
 # In[23]:
 
-log.info('generation finished len={}'.format(len(output)))
+log.info('generation finished len={}'.format(len(all_seq)))
 #print(output)
 
 # In[ ]:
