@@ -58,7 +58,7 @@ else:
 # In[21]:
 
 
-all_seq=gpt2.generate(sess,model_name="1558M",batch_size=2,nsamples=20,length=500,prefix=prompt_text,return_as_list=True)
+all_seq=gpt2.generate(sess,model_name="1558M",batch_size=gpucnt,nsamples=20,length=500,prefix=prompt_text,return_as_list=True)
 
 # In[23]:
 
