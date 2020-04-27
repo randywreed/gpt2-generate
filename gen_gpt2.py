@@ -20,9 +20,12 @@ prompt_text=args.prompt
 import gpt_2_simple as gpt2
 import os
 import requests
-
+import logging
+import subprocess
+log=logging.getLogger("my-logger")
 # In[7]:
-
+gpucnt=str(subprocess.check_output(['nvidia-smi',"-L"])).count("UUID")
+log.info("number of GPUs {}".format(gpucnt))
 
 model_name = "1558M"
 if not os.path.isdir(os.path.join("models", model_name)):
@@ -42,8 +45,10 @@ sess=gpt2.start_tf_sess()
 
 # In[17]:
 
-
-gpt2.load_gpt2(sess,model_name="1558M",multi_gpu=True)
+if gpucnt>1:
+    gpt2.load_gpt2(sess,model_name="1558M",multi_gpu=True)
+else:
+    gpt2.load_gpt2(sess,model_name="1558M")
 
 
 # In[21]:
@@ -53,13 +58,14 @@ all_seq=gpt2.generate(sess,model_name="1558M",batch_size=2,nsamples=20,length=50
 
 # In[23]:
 
-
-print(output)
+log.info('generation finished len={}'.format(len(output)))
+#print(output)
 
 # In[ ]:
 
-
+log.info('writing to output file')
 output_file="simple_results.csv"
+log.info('output file={}'.format(output_file))
 import csv
 import os
 if os.path.exists(output_file):
@@ -71,4 +77,5 @@ with open (output_file, append_flag) as csvfile:
     for i in all_seq:
         writer.writerow([prompt_text, i])
         print(i)
+        log.info(i)
     
