@@ -27,10 +27,14 @@ log=logging.getLogger("my-logger")
 gpucnt=str(subprocess.check_output(['nvidia-smi',"-L"])).count("UUID")
 log.info("number of GPUs {}".format(gpucnt))
 
+model_dir="/spell/models"
 model_name = "1558M"
-if not os.path.isdir(os.path.join("models", model_name)):
+if not os.path.isdir(os.path.join(model_dir, model_name)):
 	print(f"Downloading {model_name} model...")
+    log.info("downloading {} model".format(model_name))
 	gpt2.download_gpt2(model_name=model_name)   # model is saved into current directory under /models/124M/
+else:
+    log.info("{} already downloaded".format(model_name))
 
 
 # In[9]:
@@ -46,9 +50,9 @@ sess=gpt2.start_tf_sess()
 # In[17]:
 
 if gpucnt>1:
-    gpt2.load_gpt2(sess,model_name="1558M",multi_gpu=True)
+    gpt2.load_gpt2(sess,model_name="1558M",model_dir=model_dir,multi_gpu=True)
 else:
-    gpt2.load_gpt2(sess,model_name="1558M")
+    gpt2.load_gpt2(sess,model_name="1558M",model_dir=model_dir)
 
 
 # In[21]:
