@@ -70,5 +70,4 @@ with open (output_file, append_flag) as csvfile:
     writer=csv.writer(csvfile)
     for i in all_seq:
         writer.writerow([prompt_text, i])
-        print(i)
     
