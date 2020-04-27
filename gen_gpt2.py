@@ -30,9 +30,9 @@ log.info("number of GPUs {}".format(gpucnt))
 model_dir="/spell/models"
 model_name = "1558M"
 if not os.path.isdir(os.path.join(model_dir, model_name)):
-	print(f"Downloading {model_name} model...")
+    print(f"Downloading {model_name} model...")
     log.info("downloading {} model".format(model_name))
-	gpt2.download_gpt2(model_name=model_name)   # model is saved into current directory under /models/124M/
+    gpt2.download_gpt2(model_name=model_name)   # model is saved into current directory under /models/124M/
 else:
     log.info("{} already downloaded".format(model_name))
 
