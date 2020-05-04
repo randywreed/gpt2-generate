@@ -15,16 +15,21 @@
 # Clear the GPU by clicking on the top menu "Kernel->Restart Kernel" Then rerun the notebook from the top cell.  
 
 # In[1]:
+import argparse
+parser=argparse.ArgumentParser("gpt2 generator using huggingface transformers")
+parser.add_argument("--prompt")
+parser.add_argument("--length",default=500, help="the length of selection to generate, default=500")
+parser.add_argument("--num",type=int,default=20,help="number of selections to generate, default=20")
+args=parser.parse_args()
 
-
-
-prompt_text="If God is defined as something that is all powerful and all knowing, a strong artificial intelligence might be an actual God. If this happens the implications for religion are"
+prompt_text=args.prompt
+#"If God is defined as something that is all powerful and all knowing, a strong artificial intelligence might be an actual God. If this happens the implications for religion are"
 #max reponse_length 1024
-response_length=1000
+response_length=args.length
 #output_file will be created if it doesn't exist, otherwise answers will be appended
 output_file="results.csv"
 #max 4 (k80 gpu)
-num_of_responses=20
+num_of_responses=args.num
 
 
 # In[2]:
@@ -66,7 +71,7 @@ model.to(device)
 encoded_prompt=tokenizer.encode(prompt_text, add_special_tokens=True,return_tensors="pt")
 encoded_prompt = encoded_prompt.to(device)
 
-outputs = model.generate(encoded_prompt,500,temperature=.8,num_return_sequences=num_of_responses,repetition_penalty=85,do_sample=True,top_k=80,top_p=.85, )
+outputs = model.generate(encoded_prompt,response_length,temperature=.8,num_return_sequences=num_of_responses,repetition_penalty=85,do_sample=True,top_k=80,top_p=.85, )
 
 
 # In[7]:
