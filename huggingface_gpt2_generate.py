@@ -20,6 +20,7 @@ parser=argparse.ArgumentParser("gpt2 generator using huggingface transformers")
 parser.add_argument("--prompt")
 parser.add_argument("--length",type=int,default=500, help="the length of selection to generate, default=500")
 parser.add_argument("--num",type=int,default=20,help="number of selections to generate, default=20")
+parser.add_argument("--file",default="results.csv",help="output file, default=results.csv")
 args=parser.parse_args()
 
 prompt_text=args.prompt
@@ -27,7 +28,7 @@ prompt_text=args.prompt
 #max reponse_length 1024
 response_length=args.length
 #output_file will be created if it doesn't exist, otherwise answers will be appended
-output_file="results.csv"
+output_file=args.file
 #max 4 (k80 gpu)
 num_of_responses=args.num
 
@@ -122,7 +123,7 @@ else:
 
 import csv
 import os
-if os.path.exists(output_file):
+if os.path.exists("/spell/GPT2Model/"+output_file):
     append_flag="a"
 else: 
     append_flag="w"
