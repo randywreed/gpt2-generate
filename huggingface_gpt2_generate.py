@@ -18,7 +18,7 @@
 import argparse
 parser=argparse.ArgumentParser("gpt2 generator using huggingface transformers")
 parser.add_argument("--prompt")
-parser.add_argument("--length",default=500, help="the length of selection to generate, default=500")
+parser.add_argument("--length",type=int,default=500, help="the length of selection to generate, default=500")
 parser.add_argument("--num",type=int,default=20,help="number of selections to generate, default=20")
 args=parser.parse_args()
 
